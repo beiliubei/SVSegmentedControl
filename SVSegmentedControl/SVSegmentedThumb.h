@@ -24,4 +24,5 @@
 @property (nonatomic, readwrite) BOOL shouldCastShadow; // default is YES (NO when backgroundImage is set)
 @property (nonatomic, assign) CGFloat gradientIntensity; // default is 0.15
 
+@property (assign, nonatomic) BOOL gradientEnable;
 @end

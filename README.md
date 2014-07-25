@@ -8,7 +8,7 @@ SVSegmentedControl is a customizable `UIControl` class that mimics `UISegmentedC
 
 ### From CocoaPods
 
-Add `pod 'SVSegmentedControl'` to your Podfile or `pod 'SVSegmentedControl', :head` if you're feeling adventurous.
+Add `pod 'SVSegmentedControlFork'` to your Podfile or `pod 'SVSegmentedControlFork', :head` if you're feeling adventurous.
 
 ### Manually
 
@@ -23,7 +23,7 @@ _**Important note if your project doesn't use ARC**: you must add the `-fobjc-ar
 
 In its simplest form, this is how you create an SVSegmentedControl instance:
 
-```objective-c
+```
 segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"Section 1", @"Section 2", nil]];
 segmentedControl.changeHandler = ^(NSUInteger newIndex) {
     // respond to index change
@@ -38,7 +38,7 @@ You can position it using either its `frame` or `center` property:
 
 SVSegmentedControl can be customized with the following properties:
 
-```objective-c
+```
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 
@@ -66,7 +66,7 @@ SVSegmentedControl can be customized with the following properties:
 
 Its thumb (`SVSegmentedThumb`) can be customized as well: 
 
-```objective-c
+```
 @property (nonatomic, retain) UIImage *backgroundImage; // default is nil;
 @property (nonatomic, retain) UIImage *highlightedBackgroundImage; // default is nil;
 
@@ -76,11 +76,13 @@ Its thumb (`SVSegmentedThumb`) can be customized as well:
 @property (nonatomic, readwrite) CGSize textShadowOffset; // default is CGSizeMake(0, -1)
 @property (nonatomic, readwrite) BOOL shouldCastShadow; // default is YES (NO when backgroundImage is set)
 @property (nonatomic, assign) CGFloat gradientIntensity; // default is 0.15
+@property (assign, nonatomic) BOOL gradientEnable;    // default is Yes
 ```
 
+add gradientEnable to disable gradient feature
 To customize the thumb's appearance, you'll have to set the properties through SVSegmentedControl's `thumb` property. For instance, setting the thumb's `tintColor` is done with:
 
-```objective-c
+```
 segmentedControl.thumb.tintColor = someColor;
 ```
 
@@ -88,7 +90,7 @@ segmentedControl.thumb.tintColor = someColor;
 
 You can respond to value changes using a block handler:
 
-```objective-c
+```
 segmentedControl.changeHandler = ^(NSUInteger newIndex) {
     // respond to index change
 };
@@ -96,13 +98,13 @@ segmentedControl.changeHandler = ^(NSUInteger newIndex) {
 
 If you haven't fallen in love with blocks yet, you can still use the classic UIControl method:
 
-```objective-c
+```
 [mySegmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
 ```
 
 Providing an action method ending with a semicolon, the sender object is therefore made accessible:
 
-```objective-c
+```
 - (void)segmentedControlChangedValue:(SVSegmentedControl*)segmentedControl {
 	NSLog(@"segmentedControl did select index %i", segmentedControl.selectedIndex);
 }
